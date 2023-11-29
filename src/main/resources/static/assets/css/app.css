@@ -1,0 +1,20 @@
+
+    
+.center {
+  margin: auto;
+  width: 50%;
+  border: 1px solid silver;
+  padding: 10px;
+}
+
+.blur{
+    font-size: 40px;
+    color: transparent;
+    text-shadow: 0 0 20px #000;
+}
+
+.unblur{
+    font-size: 40px;
+    color: transparent;
+    text-shadow: 0 0 0px #000;
+}

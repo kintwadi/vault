@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+ <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+ <link rel="icon" href="favicon.ico" type="image/x-icon">
+ <link rel="stylesheet" th:href="@{bootstrap/css/bootstrap.min.css}">
+ <link rel="stylesheet" th:href="@{assets/css/app.css}">
+ 
+<body>
+
+<hr>
+	<div>
+	   <form th:action="@{/add_csv}"  method="post" enctype = "multipart/form-data">
+			<div style="float: right">
+    			 <fieldset>
+    		 		<legend>Upload CSV file</legend>
+    		 		<section>
+    		 			
+    		 				<p>The CSV file format:</p>
+    		 				<strong>Title,Password,Description</strong>
+    		 			
+    		 			<hr>
+    		 			<p><input type="file" id="csv_file" name="csv_file"></p>
+    		 		</section>
+    		 		
+    		 		<button type="submit" class="btn btn-dark btn-sm">Upload</button>
+    		 		
+    		 	</fieldset>
+    	</div>
+    	</form>
+		<div class="center">
+			 
+			<fieldset>
+				<legend>Record</legend>
+			 	<form  th:action="@{/add}" th:object="${record}" method="post" >
+			 		
+			 		
+			 		<div class="mb-3">
+			 		
+   						 <label for="name" class="form-label">Title</label>
+    					 <input type="text" class="form-control" id="title" th:field="*{title}">
+    				
+  					</div>
+  					
+  					<div class="mb-3">
+    					<label for="password" class="form-label">Password</label>
+   				 		<input type="password" class="form-control" id="password" th:field="*{password}">
+ 					 </div>
+ 					 
+ 					 <div class="form-floating">
+ 					 	<label for="floatingTextarea">Description</label>
+  						<textarea class="form-control"  name="description"  th:filed="*{description}" id="description"></textarea>
+  						
+					</div>
+					<br>
+					<div class="d-grid gap-2 col-6 mx-auto">
+						<button type="submit" class="btn btn-dark btn-sm">Save</button>
+					</div>	
+    			</form>
+    			
+			</fieldset>
+			
+			
+		</div>
+		<hr>
+		<div>
+
+<table class="table center">
+  <thead>
+    <tr>
+      
+      <th scope="col">Title</th>
+      <th scope="col">Password</th>
+      <th scope="col">Reveal</th>
+      <th scope="col">Copy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="record: ${records}">
+      <td th:text="${record.title}"  />
+      <td th:text="${record.password}" class="blur"  th:id="'ref_'+${record.id}" />
+      <td>
+      		<button class="btn btn-secondary"  onclick="unblur(this)" th:name="'ref_'+${record.id}" > 
+      			<img th:src = "@{assets/images/eye.svg}" alt="show"/>
+      		</button>
+      </td>
+      <td> 
+      		
+      		<button class="btn btn-secondary"  onclick="copyToClipboard(this)" th:class="${record.password}">
+      		 <img th:src = "@{assets/images/clipboard.svg}" alt="Copy"/>
+      			<span th:text="${record.password}" style="display: none"></span>
+      			
+      		</button>
+      			
+      		
+      </td>
+    </tr>
+  </tbody>
+</table>
+		
+	</div>
+		
+	</div>
+	
+  <script th:src="@{assets/js/jquery-3.6.4.min.js}"></script> 
+  <script th:src="@{bootstrap/js/bootstrap.min.js}"></script>
+  <script th:src="@{assets/js/app.js}"></script> 
+   
+ 
+	
+</body>
+</html>
